@@ -11,12 +11,12 @@ class Pembelian extends CI_Controller {
         $this->m = new MPembelian();
     }
 
-    function index($page = 1) {        
+    function index($page = 1) {
         $data['data_pembelian'] = $this->m->get_paged($page, 10);
         $this->load->view('mutasi/pembelian/index', $data);
     }
 
-    function tambah() {
+    function tambah() {        
         $mp = new MPemasok();
         $mb = new MBarang();
         $ms = new MSementara();
@@ -78,13 +78,17 @@ class Pembelian extends CI_Controller {
 
     function simpan() {
         $ms = new MSementara();
-
+        $mb = new MBarang();
+        $tgl = strtotime('+' . $_POST['jatuh_tempo'] . ' day', strtotime($_POST['tgl_bukti']));
+        $tgl_jt = date('Y-m-d', $tgl);
+        
         $data = array(
             'tgl_bukti' => $_POST['tgl_bukti'],
             'no_bukti' => $_POST['no_bukti'],
             'kode_psk' => $_POST['kode_psk'],
             'cara_bayar' => $_POST['cara_bayar'],
             'jatuh_tempo' => $_POST['jatuh_tempo'],
+            'tgl_jt' => $tgl_jt,
             'uraian' => $_POST['keterangan'],
             'user_id' => $this->user_id
         );
@@ -96,13 +100,16 @@ class Pembelian extends CI_Controller {
         foreach ($rs as $row) {
             $this->db->query("INSERT INTO trans_detail_pembelian (no_bukti, kode_brg, jumlah, satuan, harga_beli, diskon, harga_stl_diskon, user_id) 
                 VALUES ('" . $_POST['no_bukti'] . "', '$row->kode_brg', '$row->jumlah', '$row->satuan','$row->harga','$row->diskon', '$row->harga_stl_diskon', '$this->user_id')");
+
+            //update stock master barang
+            $mb->update_status_stock_barang($row->kode_brg, $row->satuan, $row->jumlah);
         }
 
         $ms->delete_transaksi($this->user_id);
     }
 
     function detail_pembelian($no_bukti) {
-        $md = new MDetail();        
+        $md = new MDetail();
         $data['data_barang'] = $md->where('no_bukti', $no_bukti)->get();
         $this->load->view('mutasi/pembelian/ajax/data_detail_pembelian', $data);
     }

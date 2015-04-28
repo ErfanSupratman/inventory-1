@@ -12,7 +12,7 @@ class MPelanggan extends DataMapper {
         $rs = $this->get();
         foreach ($rs as $row) {
             $data[''] = 'Pilih Pelanggan';
-            $data[$row->kode_plg] = $row->nama_perusahaan . ' - '. $row->nama_pemilik;
+            $data[$row->kode_plg] = $row->nama_perusahaan;
         }
         return $data;
     }

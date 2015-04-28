@@ -8,10 +8,11 @@ class MPembelian extends DataMapper {
         parent::__construct();
     }
 
-    function list_drop_gol() {
-        $rs = $this->get();
+    function list_drop_kredit() {
+        $data = array();
+        $rs = $this->where('cara_bayar', 'kredit')->get();
         foreach ($rs as $row) {
-            $data[''] = 'Pilih Golongan';
+            $data[''] = 'Cari No Bukti';
             $data[$row->no_bukti] = $row->no_bukti;
         }
         return $data;

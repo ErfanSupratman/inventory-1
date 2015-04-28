@@ -40,9 +40,9 @@
                         <td><?php echo $row->kode_brg; ?></td>
                         <td><?php echo $row->nama_brg; ?></td>
                         <td><?php echo $row->spec; ?></td>
-                        <td><?php echo $row->satuan1; ?></td>
-                        <td><?php echo $row->satuan2; ?></td>
-                        <td><?php echo $row->satuan3; ?></td>
+                        <td><?php echo strtoupper($row->satuan1); ?></td>
+                        <td><?php echo strtoupper($row->satuan2); ?></td>
+                        <td><?php echo strtoupper($row->satuan3); ?></td>
                         <td><?php echo $row->isi1; ?></td>
                         <td><?php echo $row->isi2; ?></td>
                         <td><?php echo $row->isi3; ?></td>

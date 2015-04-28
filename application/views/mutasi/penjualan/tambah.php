@@ -1,12 +1,15 @@
 <?php echo get_header(); ?>
-<style>
-    .css_pembelian{
-        margin-bottom: 6px;
-    }
-</style>
+<script src="<?php echo base_url('assets/js/penjualan.js'); ?>"></script>
+
 <div class="widget stacked">
     <div class="widget-header">
         <h3>Transaksi Penjualan</h3>
+        <div style="margin-top: -35px; margin-right: 5px;">
+            <button class="btn btn-warning pull-right"><i class="icon-print"></i> Cetak </button>
+            <button id="btn_simpan_pembelian" class="btn btn-danger pull-right" style="margin-right: 5px;"><i class="icon-briefcase"></i> Simpan</button>        
+            <a href="<?php echo site_url('mutasi/penjualan'); ?>" style="margin-right: 5px;" class="btn btn-primary pull-right">Kembali</a>
+        </div>
+
     </div>
     <div class="widget-content">
         <form action="<?php echo $form_action; ?>" method="post" class="form-horizontal" id="frm_golongan">
@@ -38,9 +41,15 @@
                     </div>
                 </div>
                 <hr/>
-                <div class="control-group" style="margin-bottom: -1px;">
+                <div class="control-group" style="margin-bottom: 6px;">
                     <div class="controls">
-                        <?php echo $kode_brg; ?>
+                        <?php echo form_input($kode_brg); ?>
+                    </div>
+                </div>
+                <div class="control-group" style="margin-bottom: 6px;">
+                    <label class="control-label">Nama Barang</label>
+                    <div class="controls">
+                        <?php echo form_input($nama_brg); ?>                        
                     </div>
                 </div>
                 <div class="control-group" style="margin-bottom: 6px;">
@@ -63,6 +72,7 @@
                         <?php echo form_input($stl_disc); ?>
                     </div>
                 </div>
+                <button class="btn btn-success btn-large input-block-level" name="btn_add" id="btn_add">Add</button>
             </div>
             <div class="span7 pull-right">
                 <table class="table">
@@ -78,49 +88,35 @@
                             <th>Exp Date</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>MKN001002001</td>
-                            <td>Mie Sedap</td>
-                            <td>10</td>
-                            <td>Dos</td>
-                            <td>450000</td>
-                            <td>0</td>
-                            <td>-</td>
+                    <tbody id="tbody_data_barang">
+                        <?php if ($data_barang->count() > 0) { ?>
+                            <?php
+                            $x = 0;
+                            foreach ($data_barang as $row) {
+                                $x++;
+                                ?>
+                                <tr>
+                                    <td><?php echo $x ?></td>
+                                    <td><?php echo $row->kode_brg; ?></td>
+                                    <td><?php echo $row->nama_brg; ?></td>
+                                    <td><?php echo $row->jumlah; ?></td>
+                                    <td><?php echo $row->satuan; ?></td>
+                                    <td><?php echo $row->harga; ?></td>
+                                    <td><?php echo $row->diskon; ?></td>
+                                    <td><?php echo $row->exp_date; ?></td>
+                                </tr>
+                            <?php } ?>
+                        <?php } else { ?>
+                            <tr>
+                                <td colspan="8"><center>[ Daftar Barang Kosong ]</center></td>
                         </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>ATK001002001</td>
-                            <td>Buku Tulis Bobo 35 Lembar</td>
-                            <td>10</td>
-                            <td>Dos</td>
-                            <td>450000</td>
-                            <td>0</td>
-                            <td>-</td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>MIN001002001</td>
-                            <td>Coca - Cola 1 Liter</td>
-                            <td>10</td>
-                            <td>Dos</td>
-                            <td>450000</td>
-                            <td>0</td>
-                            <td>-</td>
-                        </tr>
+
+                    <?php } ?>
                     </tbody>
                 </table>
             </div>
         </form>
     </div>
-    <div style="margin: 20px;" class="pull-right">
-        <input type="submit" name="submit" value="Proses" class="btn btn-success btn-large">
-        <input type="submit" name="submit" value="Batal" class="btn btn-info btn-large">
-        <button class="btn btn-warning btn-large"><i class="icon-print"></i> Cetak </button>
-        <input type="submit" name="submit" value="Simpan" class="btn btn-danger btn-large">
-    </div>
-
 </div>
 
 <?php echo get_footer(); ?>

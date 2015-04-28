@@ -71,11 +71,11 @@
                             <li class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" role="button" id="drop2" href="#">Hutang/Piutang <b class="caret"></b></a>
                                 <ul aria-labelledby="drop2" role="menu" class="dropdown-menu">
-                                    <li><a href="<?php echo site_url('master/anggota/'); ?>" role="menuitem">Periksa->Hutang</a></li>
-                                    <li><a href="<?php echo site_url('master/anggota/'); ?>" role="menuitem">Bayar->Hutang</a></li>
+                                    <li><a href="<?php echo site_url('hutang/periksa/'); ?>" role="menuitem">Periksa->Hutang</a></li>
+                                    <li><a href="<?php echo site_url('hutang/bayar/'); ?>" role="menuitem">Bayar->Hutang</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="<?php echo site_url('master/anggota/'); ?>" role="menuitem">Periksa->Piutang</a></li>
-                                    <li><a href="<?php echo site_url('master/anggota/'); ?>" role="menuitem">Pembayaran->Piutang</a></li>
+                                    <li><a href="<?php echo site_url('piutang/periksa/'); ?>" role="menuitem">Periksa->Piutang</a></li>
+                                    <li><a href="<?php echo site_url('piutang/bayar/'); ?>" role="menuitem">Pembayaran->Piutang</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">

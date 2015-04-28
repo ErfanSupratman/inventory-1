@@ -18,40 +18,40 @@
 
 <div class="widget stacked">
     <div class="widget-header">
-        <h3>Form Barang</h3>
+        <h3>Form Master Barang</h3>
     </div>
     <div class="widget-content">
         <form action="<?php echo $form_action; ?>" method="post" class="form-horizontal" id="frm_golongan">
             <div class="span6">
-                <div class="control-group">
+                <div class="control-group" style="margin-bottom: -1px;">
                     <label class="control-label">Kode Produk</label>
                     <div class="controls">
                         <?php echo $kode_prd; ?>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="control-group" style="margin-bottom: 6px;">
                     <label class="control-label">Kode Barang</label>
                     <div class="controls">
                         <?php echo form_input($kode_brg); ?>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="control-group" style="margin-bottom: 6px;">
                     <label class="control-label">Nama Barang</label>
                     <div class="controls">
                         <?php echo form_input($nama_brg); ?>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="control-group" style="margin-bottom: 6px;">
                     <label class="control-label">Spesifikasi</label>
                     <div class="controls">
-                        <?php echo form_input($spec); ?>
+                        <?php echo form_textarea($spec); ?>
                     </div>
                 </div>
 
             </div>
 
             <div class="span6">
-                <div class="control-group">
+                <div class="control-group" style="margin-bottom: 6px;">
                     <label class="control-label">Satuan</label>
                     <div class="controls">
                         <table>
@@ -64,7 +64,7 @@
 
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="control-group" style="margin-bottom: 6px;">
                     <label class="control-label">Isi</label>
                     <div class="controls">
                         <table>
@@ -76,7 +76,7 @@
                         </table>                        
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="control-group" style="margin-bottom: 6px;">
                     <label class="control-label">Stock Awal</label>
                     <div class="controls">
                         <table>
@@ -88,7 +88,7 @@
                         </table>
                     </div>
                 </div>
-                <div class="control-group">
+                <div class="control-group" style="margin-bottom: 6px;">
                     <label class="control-label">Stock Minimal</label>
                     <div class="controls">
                         <?php echo form_input($stock_minimal); ?> Karton

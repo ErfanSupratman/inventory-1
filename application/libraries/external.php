@@ -93,25 +93,41 @@ class External {
             return false;
     }
 
-    function harga_pokok($kode_brg = "MKN003002000004") {
+    function hpp($harga) {
+        $persen = get_field_setting('PERSENTASE_HARGA_JUAL');
+        $nilai = ($harga * $persen) / 100;
+        $hpp = ($harga + $nilai);
+        return $hpp;
+    }
+
+    function harga_pokok($kode_brg, $satuan) {
         $md = new MDetail();
         $metode = get_field_setting('METODE_HARGA_POKOK');
         $sub_total = 0;
         $harga = 0;
         $jml = 0;
+        $hpp = 0;
+        $total = 0;
 
         if ($metode == 'AVG') {
-            $rs = $md->select('kode_brg,jumlah,harga_beli')->where('kode_brg', $kode_brg)->get();
-            foreach ($rs as $row) {
-                $harga = ($row->jumlah * $row->harga_beli);
-                $sub_total = ($sub_total + $harga);
-                $jml = ($jml + $row->jumlah);
+            //HARGA = NILAI STOCK / JUMLAH STOOCK            
+            $rs = $md->where('kode_brg', $kode_brg)->where('satuan', $satuan)->get();            
+            if ($rs->exists()) {
+                foreach ($rs as $row) {
+                    $harga = ($row->jumlah * $row->harga_beli);
+                    $sub_total = ($sub_total + $harga);
+                    $jml = ($jml + $row->jumlah);
+                }
+                $total = ($sub_total / $jml);
+                $hpp = $this->hpp($total);
+                return number_format($hpp, 0, ",", "");
+            } else {
+                return '0';
             }
-            return number_format($sub_total / $jml, 0, ",", "");
         } else {
             
         }
-        
+
         /*
          * maka laba kotor (jml_penjualan * harga) - (sub_total * jml_penjualan)
          */

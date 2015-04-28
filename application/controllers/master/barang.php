@@ -11,6 +11,7 @@ class Barang extends CI_Controller {
     }
 
     function index($page = 1) {
+//        echo $this->external->harga_pokok();
         $this->m = new MBarang();
         $data['data_barang'] = $this->m->get_paged($page, 10);
         $this->load->view('master/barang/index', $data);
@@ -25,21 +26,21 @@ class Barang extends CI_Controller {
             'biji' => 'Biji'
         );
         $data['form_action'] = site_url('master/barang/simpan');
-        $data['kode_prd'] = form_dropdown('kode_prd', $kode_prd, '', 'id="kode_prd" class="chosen-select input-block-level span4" data-url=" ' . site_url('master/barang/get_kode_brg/') . '"');
+        $data['kode_prd'] = form_dropdown('kode_prd', $kode_prd, '', 'id="kode_prd" class="chosen-select input-block-level" data-url=" ' . site_url('master/barang/get_kode_brg/') . '"');
         $data['kode_brg'] = array('name' => 'kode_brg', 'id' => 'kode_brg', 'readonly' => 'readonly');
-        $data['nama_brg'] = array('name' => 'nama_brg', 'id' => 'nama_brg');
-        $data['spec'] = array('name' => 'spec');
-        $data['satuan1'] = form_dropdown('satuan1', $opt_satuan1, 'karton', 'class="input-mini"');
-        $data['satuan2'] = form_dropdown('satuan2', $opt_satuan1, 'dosin', 'class="input-mini"');
-        $data['satuan3'] = form_dropdown('satuan3', $opt_satuan1, 'biji', 'class="input-mini"');
-        $data['isi1'] = array('name' => 'isi1', 'class' => 'input-mini');
-        $data['isi2'] = array('name' => 'isi2', 'class' => 'input-mini');
-        $data['isi3'] = array('name' => 'isi3', 'class' => 'input-mini');
-        $data['stock_awal1'] = array('name' => 'stock_awal1', 'class' => 'input-mini');
-        $data['stock_awal2'] = array('name' => 'stock_awal2', 'class' => 'input-mini');
-        $data['stock_awal3'] = array('name' => 'stock_awal3', 'class' => 'input-mini');
-        $data['stock_minimal'] = array('name' => 'stock_minimal', 'class' => 'input-small');
-        $data['stock_maximal'] = array('name' => 'stock_maximal', 'class' => 'input-small');
+        $data['nama_brg'] = array('name' => 'nama_brg', 'id' => 'nama_brg', 'class' => 'input-block-level');
+        $data['spec'] = array('name' => 'spec', 'rows' => '5', 'class' => 'input-block-level');
+        $data['satuan1'] = form_dropdown('satuan1', $opt_satuan1, 'karton', 'class="input-mini" style="width: 75px;"');
+        $data['satuan2'] = form_dropdown('satuan2', $opt_satuan1, 'dosin', 'class="input-mini" style="width: 75px;"');
+        $data['satuan3'] = form_dropdown('satuan3', $opt_satuan1, 'biji', 'class="input-mini" style="width: 75px;"');
+        $data['isi1'] = array('name' => 'isi1', 'class' => 'input-mini', 'placeholder' => 'ISI 1');
+        $data['isi2'] = array('name' => 'isi2', 'class' => 'input-mini', 'placeholder' => 'ISI 2');
+        $data['isi3'] = array('name' => 'isi3', 'class' => 'input-mini', 'placeholder' => 'ISI 3');
+        $data['stock_awal1'] = array('name' => 'stock_awal1', 'class' => 'input-mini', 'placeholder' => 'Stock 1');
+        $data['stock_awal2'] = array('name' => 'stock_awal2', 'class' => 'input-mini', 'placeholder' => 'Stock 2');
+        $data['stock_awal3'] = array('name' => 'stock_awal3', 'class' => 'input-mini', 'placeholder' => 'Stock 3');
+        $data['stock_minimal'] = array('name' => 'stock_minimal', 'class' => 'input-mini');
+        $data['stock_maximal'] = array('name' => 'stock_maximal', 'class' => 'input-mini');
         $this->load->view('master/barang/tambah', $data);
     }
 
@@ -80,21 +81,21 @@ class Barang extends CI_Controller {
             'biji' => 'Biji'
         );
         $data['form_action'] = site_url('master/barang/simpan');
-        $data['kode_prd'] = form_dropdown('kode_prd', $kode_prd, $rs->kode_prd, 'id ="kode_prd" data-url=" ' . site_url('master/barang/get_kode_brg/') . '"');
+        $data['kode_prd'] = form_dropdown('kode_prd', $kode_prd, $rs->kode_prd, 'id ="kode_prd" class="chosen-select input-block-level" data-url=" ' . site_url('master/barang/get_kode_brg/') . '"');
         $data['kode_brg'] = array('name' => 'kode_brg', 'id' => 'kode_brg', 'value' => $rs->kode_brg);
-        $data['nama_brg'] = array('name' => 'nama_brg', 'value' => $rs->nama_brg);
-        $data['spec'] = array('name' => 'spec', 'value' => $rs->spec);
-        $data['satuan1'] = form_dropdown('satuan1', $opt_satuan1, $rs->satuan1, 'class="input-mini"');
-        $data['satuan2'] = form_dropdown('satuan2', $opt_satuan1, $rs->satuan2, 'class="input-mini"');
-        $data['satuan3'] = form_dropdown('satuan3', $opt_satuan1, $rs->satuan3, 'class="input-mini"');
+        $data['nama_brg'] = array('name' => 'nama_brg', 'value' => $rs->nama_brg, 'class' => 'input-block-level');
+        $data['spec'] = array('name' => 'spec', 'value' => $rs->spec, 'rows' => '5', 'class' => 'input-block-level');
+        $data['satuan1'] = form_dropdown('satuan1', $opt_satuan1, $rs->satuan1, 'class="input-mini" style="width: 75px;"');
+        $data['satuan2'] = form_dropdown('satuan2', $opt_satuan1, $rs->satuan2, 'class="input-mini" style="width: 75px;"');
+        $data['satuan3'] = form_dropdown('satuan3', $opt_satuan1, $rs->satuan3, 'class="input-mini" style="width: 75px;"');
         $data['isi1'] = array('name' => 'isi1', 'class' => 'input-mini', 'value' => $rs->isi1);
         $data['isi2'] = array('name' => 'isi2', 'class' => 'input-mini', 'value' => $rs->isi2);
         $data['isi3'] = array('name' => 'isi3', 'class' => 'input-mini', 'value' => $rs->isi3);
         $data['stock_awal1'] = array('name' => 'stock_awal1', 'class' => 'input-mini', 'value' => $rs->stock_awal1);
         $data['stock_awal2'] = array('name' => 'stock_awal2', 'class' => 'input-mini', 'value' => $rs->stock_awal2);
         $data['stock_awal3'] = array('name' => 'stock_awal3', 'class' => 'input-mini', 'value' => $rs->stock_awal3);
-        $data['stock_minimal'] = array('name' => 'stock_minimal', 'class' => 'input-small', 'value' => $rs->stock_minimal);
-        $data['stock_maximal'] = array('name' => 'stock_maximal', 'class' => 'input-small', 'value' => $rs->stock_maximal);
+        $data['stock_minimal'] = array('name' => 'stock_minimal', 'class' => 'input-mini', 'value' => $rs->stock_minimal);
+        $data['stock_maximal'] = array('name' => 'stock_maximal', 'class' => 'input-mini', 'value' => $rs->stock_maximal);
         $this->load->view('master/barang/tambah', $data);
     }
 
@@ -108,16 +109,15 @@ class Barang extends CI_Controller {
         redirect('master/barang');
     }
 
-    function nama_barang_auto() {        
+    function nama_barang_auto() {
         $list = $this->m
-                ->like('nama_brg', '%' . $this->input->get('term') . '%')                                
+                ->like('nama_brg', '%' . $this->input->get('term') . '%')
                 ->get();
         foreach ($list as $row) {
             $results[] = array('label' => strtoupper($row->nama_brg), 'value' => $row->kode_brg);
         }
         echo json_encode($results);
-    }   
-    
+    }
 
 }
 

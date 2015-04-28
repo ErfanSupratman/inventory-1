@@ -29,8 +29,6 @@
             <tbody id="data_gologan">
                 <?php
                 foreach ($data_pembelian as $row) {
-                    $tgl_jth = $row->jatuh_tempo <> 0 ? strtotime('+' . $row->jatuh_tempo . ' day', strtotime($row->tgl_bukti)) : '0';
-                    $tgl = $tgl_jth <> 0 ? date('Y-m-d', $tgl_jth) : '';
                     ?>
                     <tr>
                         <td><?php echo $row->no_bukti; ?></td>
@@ -38,7 +36,7 @@
                         <td><?php echo strtoupper($row->cara_bayar); ?></td>
                         <td><?php echo $row->kode_psk; ?></td>
                         <td><?php echo $row->jatuh_tempo; ?></td>
-                        <td><?php echo $tgl; ?></td>
+                        <td><?php echo $row->tgl_jt; ?></td>
                         <td><?php echo strtoupper($row->uraian); ?></td>
                         <td>
                             <div class="btn-group">

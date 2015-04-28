@@ -16,8 +16,8 @@ class MBarang extends DataMapper {
         }
         return $data;
     }
-    
-    function get_record($val, $field){
+
+    function get_record($val, $field) {
         $rs = $this->where('kode_brg', $val)->get();
         return $rs->$field;
     }
@@ -43,6 +43,16 @@ class MBarang extends DataMapper {
                 $L = $NOL . $L;
             }
             return $Parse . $L;
+        }
+    }
+
+    function update_status_stock_barang($kode_brg, $satuan, $isi) {
+        if ($satuan == 'karton') {
+            $this->db->query("UPDATE " . $this->table . " SET isi1=isi1 + '$isi' WHERE kode_brg= '$kode_brg' AND satuan1 = 'karton'");
+        } elseif ($satuan == 'dosin') {
+            $this->db->query("UPDATE " . $this->table . " SET isi2=isi2 + '$isi' WHERE kode_brg= '$kode_brg' AND satuan2 = 'dosin'");
+        } else {
+            $this->db->query("UPDATE " . $this->table . " SET isi3=isi3 + '$isi' WHERE kode_brg= '$kode_brg' AND satuan3 = 'biji'");
         }
     }
 
