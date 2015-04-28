@@ -1,4 +1,5 @@
 <?php echo get_header(); ?>
+<script src="<?php echo base_url('assets/js/hutang.js'); ?>"></script>
 
 <div class="widget stacked">
     <div class="widget-header">
@@ -10,7 +11,7 @@
         </div>
     </div>
     <div class="widget-content">
-        <form action="<?php echo site_url('mutasi/pembelian/simpan'); ?>" method="post" class="form-horizontal" id="frm_pembelian">
+        <form action="<?php echo site_url('hutang/bayar/simpan'); ?>" method="post" class="form-horizontal" id="frm_pembelian">
             <div class="span5 pull-left">
                 <div class="control-group" style="margin-bottom: -1px;">
                     <label class="control-label">No Bukti</label>
@@ -21,7 +22,7 @@
                 <div class="control-group" style="margin-bottom: 6px;">
                     <label class="control-label">Pemasok</label>
                     <div class="controls">
-                        <?php echo form_input($kode_psk); ?>
+                        <?php echo form_input($nama_psk); ?>
                     </div>
                 </div>
                 <div class="control-group" style="margin-bottom: 6px;">
@@ -51,6 +52,7 @@
                     </div>
                 </div>                
             </div>                
+            <input type="submit" value="Simpan" name="Simpan">
         </form>
         <div class="span9" style="margin-top: 50px;">
             <table class="table">

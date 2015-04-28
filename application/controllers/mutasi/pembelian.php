@@ -16,7 +16,7 @@ class Pembelian extends CI_Controller {
         $this->load->view('mutasi/pembelian/index', $data);
     }
 
-    function tambah() {        
+    function tambah() {
         $mp = new MPemasok();
         $mb = new MBarang();
         $ms = new MSementara();
@@ -81,7 +81,7 @@ class Pembelian extends CI_Controller {
         $mb = new MBarang();
         $tgl = strtotime('+' . $_POST['jatuh_tempo'] . ' day', strtotime($_POST['tgl_bukti']));
         $tgl_jt = date('Y-m-d', $tgl);
-        
+
         $data = array(
             'tgl_bukti' => $_POST['tgl_bukti'],
             'no_bukti' => $_POST['no_bukti'],
@@ -94,6 +94,12 @@ class Pembelian extends CI_Controller {
         );
         //simpan ke table pembelian
         $this->m->simpan_transaksi($data);
+
+        //simpan ke table hutang jika pembelian dengan cara bayar kredit
+        if ($this->input->post('cara_bayar') == 'kredit') {
+            $this->db->query("INSERT INTO hutang (tgl_bukti,no_bukti,kode_psk,nilai,jatuh_tempo, sisa) 
+                VALUES ('" . $_POST['tgl_bukti'] . "', '" . $_POST['no_bukti'] . "', '" . $_POST['kode_psk'] . "', '" . $_POST['nilai'] . "','" . $_POST['jatuh_tempo'] . "','" . $_POST['nilai'] . "')");
+        }
 
         //ambil data barang dari table sementara
         $rs = $ms->where('user_id', $this->user_id)->get();
