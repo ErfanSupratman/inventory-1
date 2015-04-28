@@ -24,13 +24,13 @@ class Bayar extends CI_Controller {
 
     function periksa_hutang($no_bukti) {
         $data = array();
-        $query = $this->db->query("SELECT pemasok.nama_psk, hutang.nilai, hutang.jatuh_tempo FROM pemasok 
+        $query = $this->db->query("SELECT pemasok.nama_psk, hutang.sisa, hutang.jatuh_tempo FROM pemasok 
             INNER JOIN hutang ON pemasok.kode_psk = hutang.kode_psk WHERE hutang.no_bukti = '$no_bukti'");
         if ($query->num_rows() > 0) {
             $row = $query->row();
             $data[] = array(
                 'nama_psk' => $row->nama_psk,
-                'nilai' => rupiah($row->nilai),
+                'sisa' => rupiah($row->sisa),
                 'angsuran_ke' => $row->jatuh_tempo
             );
             echo json_encode($data);
@@ -46,7 +46,12 @@ class Bayar extends CI_Controller {
 
         //simpan ke tabel bayar_hutang
         $this->db->query("INSERT INTO bayar_hutang (no_bukti, angsuran, jml_bayar, tgl_bayar) 
-            VALUES ('".$_POST['no_bukti']."','".$angsuran."', '".$_POST['jml_bayar']."','".$_POST['tgl_bayar']."')");
+            VALUES ('" . $_POST['no_bukti'] . "','" . $angsuran . "', '" . $_POST['jml_bayar'] . "','" . $_POST['tgl_bayar'] . "')");
+    }
+
+    function riwayat_hutang($no_bukti) {
+        $data['query'] = $this->db->query("SELECT * FROM bayar_hutang WHERE no_bukti ='$no_bukti' ORDER BY tgl_bayar ASC;");
+        $this->load->view('hutang/ajax/riwayat_hutang', $data);
     }
 
 }

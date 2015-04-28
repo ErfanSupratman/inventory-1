@@ -64,7 +64,7 @@
                         <th>Sisa</th>
                     </tr>
                 </thead>
-                <tbody id="tbody_data_barang">
+                <tbody id="riwayat_kredit" data-url="<?php echo site_url('hutang/bayar/riwayat_hutang');?>">
                     <tr><td colspan="8"><center>[ Daftar Pembayaran ]</center></td></tr>
                 </tbody>
             </table>
