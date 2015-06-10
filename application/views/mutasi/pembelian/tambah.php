@@ -12,6 +12,7 @@
     </div>
     <div class="widget-content">
         <form action="<?php echo site_url('mutasi/pembelian/simpan');?>" method="post" class="form-horizontal" id="frm_pembelian">
+            <input id="total_pembelian" data-url="<?php echo site_url('mutasi/pembelian/sum_pembelian/');?>" type="text" name="total_pembelian" class="input-large span7 pull-right" style="height: 60px; font-size: 60px; text-align: right;" readonly="readonly">
             <div class="span5 pull-left">
                 <div class="control-group" style="margin-bottom: 6px;">
                     <label class="control-label">No Bukti</label>
@@ -85,6 +86,8 @@
         </form>
     </div>
     <div class="span7 pull-right">
+        
+        <hr/>
         <div style="height: 200px;">
             <table class="table">
                 <thead>
@@ -121,12 +124,6 @@
                 <?php } ?>
                 </tbody>
             </table>
-        </div>
-        <div class="well alert-info">
-            Catatan *
-            <ul>
-                <li>Gunakan Tombol "Tab"</li>
-            </ul>
         </div>
     </div>
 </div>

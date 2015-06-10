@@ -15,6 +15,7 @@ $(function() {
                 riwayat_hutang();
                 ShowOrHideLoading(false);
             });
+            $('#jml_bayar').focus();
         });
     });
 })

@@ -104,8 +104,8 @@ class Users extends CI_Controller {
         $muser = new MUser();
         sleep(2);
         # Periksa Login Untuk Administrator #
-        if ($muser->check_user($_GET['username'], $_GET['password']) == TRUE) {
-            $rs = $muser->where('username', $_GET['username'])->get();
+        if ($muser->check_user($_POST['username'], $_POST['password']) == TRUE) {
+            $rs = $muser->where('username', $_POST['username'])->get();
             $userdata = array(
                 'user_id' => $rs->id,
                 'full_name' => $rs->full_name,

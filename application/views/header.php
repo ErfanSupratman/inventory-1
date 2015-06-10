@@ -36,7 +36,8 @@
                     <div class="pull-left" style="margin-top: 15px; margin-left: -10px; width: 44px;">
                         <div id="custome-loading"></div>
                     </div>
-                    <a class="brand" href="<?php echo site_url('welcome'); ?>"><?php echo get_field_setting('NAMA_APLIKASI'); ?></a>
+                    <a href="<?php echo site_url('users/sign_out'); ?>" class="btn pull-right btn-danger btn-small" style="margin-left: 50px;" title="Keluar Aplikasi"><i class="icon-off"></i></a>
+                    <a class="brand" href="<?php echo site_url('welcome'); ?>"><?php echo get_field_setting('NAMA_APLIKASI'); ?></a>                    
                     <div class="nav-collapse collapse">
                         <ul class="nav">
                             <li class="dropdown">
@@ -71,30 +72,30 @@
                             <li class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" role="button" id="drop2" href="#">Hutang/Piutang <b class="caret"></b></a>
                                 <ul aria-labelledby="drop2" role="menu" class="dropdown-menu">
-                                    <li><a href="<?php echo site_url('hutang/periksa/'); ?>" role="menuitem">Periksa->Hutang</a></li>
-                                    <li><a href="<?php echo site_url('hutang/bayar/'); ?>" role="menuitem">Bayar->Hutang</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="<?php echo site_url('piutang/periksa/'); ?>" role="menuitem">Periksa->Piutang</a></li>
-                                    <li><a href="<?php echo site_url('piutang/bayar/'); ?>" role="menuitem">Pembayaran->Piutang</a></li>
+                                    <!--<li><a href="<?php //echo site_url('hutang/bayar/periksa/'); ?>" role="menuitem">Periksa->Hutang</a></li>-->
+                                    <li><a href="<?php echo site_url('hutang/bayar/'); ?>" role="menuitem">Hutang</a></li>
+                                    <!--<li class="divider"></li>-->
+                                    <!--<li><a href="<?php //echo site_url('piutang/bayar/periksa/'); ?>" role="menuitem">Periksa->Piutang</a></li>-->
+                                    <li><a href="<?php echo site_url('piutang/bayar/'); ?>" role="menuitem">Piutang</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" role="button" id="drop2" href="#">Laporan <b class="caret"></b></a>
                                 <ul aria-labelledby="drop2" role="menu" class="dropdown-menu">
-                                    <li><a href="<?php echo site_url('laporan/teller/') ?>" role="menuitem">Lap. Kode Stock</a></li>
-                                    <li><a href="<?php echo site_url('laporan/teller/') ?>" role="menuitem">Lap. Saldo Stock</a></li>
-                                    <li><a href="<?php echo site_url('laporan/teller/') ?>" role="menuitem">Lap. Reorder Stock</a></li>
+                                    <li><a href="#myModalLaporan" data-toggle="modal" role="button">Lap. Kode Stock</a></li>
+                                    <li><a href="#myModalLaporan" data-toggle="modal" role="button">Lap. Saldo Stock</a></li>
+                                    <li><a href="#myModalLaporan" data-toggle="modal" role="button">Lap. Reorder Stock</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="<?php echo site_url('laporan/trans_tabungan/') ?>" role="menuitem">Lap. Akum Bulanan Pembelian</a></li>
-                                    <li><a href="<?php echo site_url('laporan/trans_tabungan/') ?>" role="menuitem">Lap. Akum Bulanan Penjualan</a></li>                                    
+                                    <li><a href="#myModalLaporan" data-toggle="modal" role="button">Lap. Akum Bulanan Pembelian</a></li>
+                                    <li><a href="#myModalLaporan" data-toggle="modal" role="button">Lap. Akum Bulanan Penjualan</a></li>                                    
                                     <li class="divider"></li>
-                                    <li><a href="<?php echo site_url('laporan/rekening_koran/') ?>" role="menuitem">Lap. Hutang</a></li>
-                                    <li><a href="<?php echo site_url('laporan/riwayat_kredit/') ?>" role="menuitem">Lap. Piutang</a></li>
+                                    <li><a href="#myModalLaporan" data-toggle="modal" role="button">Lap. Hutang</a></li>
+                                    <li><a href="#myModalLaporan" data-toggle="modal" role="button">Lap. Piutang</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="<?php echo site_url('laporan/buku_besar/') ?>" role="menuitem">Lap. Kartu Barang</a></li>
-                                    <li><a href="<?php echo site_url('laporan/neraca/') ?>" role="menuitem">Lap. Gudang</a></li>
-                                    <li><a href="<?php echo site_url('laporan/laba_rugi/') ?>" role="menuitem">Lap. Buku Pembelian</a></li>
-                                    <li><a href="<?php echo site_url('laporan/laba_rugi/') ?>" role="menuitem">Lap. Buku Penjualan</a></li>
+                                    <li><a href="<?php echo site_url('laporan/kartu_barang/') ?>" role="menuitem">Lap. Kartu Barang</a></li>
+                                    <li><a href="<?php echo site_url('laporan/gudang/') ?>" data-toggle="modal" role="button">Lap. Gudang</a></li>
+                                    <li><a href="<?php echo site_url('laporan/buku_pembelian/') ?>" data-toggle="modal" role="button">Lap. Buku Pembelian</a></li>
+                                    <li><a href="<?php echo site_url('laporan/gudang/buku_penjualan/') ?>" data-toggle="modal" role="button">Lap. Buku Penjualan</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">

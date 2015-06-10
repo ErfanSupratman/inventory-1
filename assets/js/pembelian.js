@@ -85,20 +85,22 @@ $(function() {
         var form_action = $('#frm_add_barang').attr('action');
         var data = $('#frm_add_barang').serialize();
         var url = $('#frm_add_barang').attr('data-url');
-        
+
         $('#loading_add_product').show();
+        
         $.ajax({
             url: form_action,
             type: "POST",
             data: data,
             cache: false,
-            success: function(html) {
+            success: function(html){
+                total_pembelian();
                 load_data_barang(url);
                 $('#frm_add_barang').trigger('reset');
                 $('#kode_brg').focus();
                 $('#loading_add_product').hide();
             }
-        });
+        });        
         return false;
     });
     $('#btn_simpan_pembelian').click(function() {
@@ -108,7 +110,7 @@ $(function() {
         var url_brg = $('#frm_add_barang').attr('data-url');
         var no_bukti = $('#no_bukti').val();
         var tgl_bukti = $('#tgl_bukti').val();
-        var kode_psk = $('#kode_psk').val();
+        var kode_psk = $('#kode_psk').val();        
 
         if (no_bukti == '' && kode_psk == '' && tgl_bukti == '') {
             alert('No Bukti, Tanggal Bukti dan Pemasok tidak boleh kosong.');
@@ -126,8 +128,8 @@ $(function() {
             alert('Tanggal Bukti tidak boleh kosong.');
             return false;
         }
-        
-        
+
+
         ShowOrHideLoading(true);
         $.ajax({
             url: form_action,
@@ -173,5 +175,12 @@ function show_detail_pembelian(url) {
         $('#tbl_detail_barang').html('');
         $('#tbl_detail_barang').append(html);
     });
+}
 
+function total_pembelian() {
+    var no_bukti = $('#no_bukti').val();
+    var url = $('#total_pembelian').attr('data-url');
+    $.get(url + '/' + no_bukti, function(result) {
+        $('#total_pembelian').val(result);
+    })
 }

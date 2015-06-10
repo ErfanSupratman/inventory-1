@@ -9,13 +9,48 @@
     </div>
 </div>
 
+<!-- Modal Cetak Laporan -->
+<div id="myModalLaporan" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <h3 id="myModalLabel">Cetak Laporan</h3>
+    </div>
+    <div class="modal-body">
+        <form action="" class="form-horizontal">
+            <table cellpadding="5" style="text-align: left;">
+                <tr>
+                    <th><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked></th>
+                    <th>Pertanggal</th>
+                    <th>
+                        <input type="text" name="tgl1" id="tgl1" class="input-small">
+                        <input type="text" name="tgl2" id="tgl2" class="input-small">
+                    </th>
+                </tr>
+                <tr>
+                    <th><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"></th>
+                    <th>Perbulan</th>
+                    <th><?php echo form_dropdown('bulan', dropdown_bulan(), '', 'id="bulan" class="input-small"')?></th>
+                </tr>
+                <tr>
+                    <th><input type="radio" name="optionsRadios" id="optionsRadios1" value="option1"></th>
+                    <th>Pertahun</th>
+                    <th><?php echo form_dropdown('tahun', dropdown_tahun(), '2014', 'id="tahun" class="input-small"');?></th>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="modal-footer">        
+        <button class="btn btn-info" data-dismiss="modal" aria-hidden="true">Cari</button>
+        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Keluar</button>
+    </div>
+</div>
+
 <!-- Modal Identitas -->
 <div id="modal_identitas" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-header">
         <h3 id="myModalLabel">Identitas Perusahaan</h3>
     </div>
     <div class="modal-body">
-        <form id="frm_identitas" action="<?php echo site_url('master/identitas/update_data');?>">
+        <form id="frm_identitas" action="<?php echo site_url('master/identitas/update_data'); ?>">
             <input type="hidden" name="id" id="id_id">
             <table style="width: 100%;">
                 <tr>

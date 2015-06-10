@@ -16,7 +16,7 @@ class Bayar extends CI_Controller {
         $data['nama_psk'] = array('name' => 'nama_psk', 'class' => 'input-block-level', 'id' => 'nama_psk', 'readonly' => 'readonly');
         $data['jml_hutang'] = array('name' => 'jml_hutang', 'class' => 'span2', 'id' => 'jml_hutang', 'readonly' => 'readonly');
         $data['angsuran_ke'] = array('name' => 'angsuran_ke', 'class' => 'input-mini', 'id' => 'angsuran_ke', 'readonly' => 'readonly');
-        $data['jml_bayar'] = array('name' => 'jml_bayar', 'class' => 'span2', 'id' => 'jml_bayar', 'required' => 'required');
+        $data['jml_bayar'] = array('name' => 'jml_bayar', 'class' => 'input-small', 'id' => 'jml_bayar', 'required' => 'required');
         $data['jml_sisa'] = array('name' => 'jml_sisa', 'class' => 'span2', 'id' => 'jml_sisa', 'required' => 'required');
         $data['tgl_bayar'] = array('name' => 'tgl_bayar', 'class' => 'input-small', 'id' => 'tgl_bayar', 'value' => date('Y-m-d'));
         $this->load->view('hutang/bayar', $data);
@@ -52,6 +52,12 @@ class Bayar extends CI_Controller {
     function riwayat_hutang($no_bukti) {
         $data['query'] = $this->db->query("SELECT * FROM bayar_hutang WHERE no_bukti ='$no_bukti' ORDER BY tgl_bayar ASC;");
         $this->load->view('hutang/ajax/riwayat_hutang', $data);
+    }
+    
+    function periksa(){
+        $mh = new MHutang();
+        $data['data_hutang'] = $mh->get();
+        $this->load->view('hutang/periksa', $data);
     }
 
 }

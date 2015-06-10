@@ -23,6 +23,7 @@
                     <th>Jatuh Tempo</th>
                     <th>Tgl Jatuh Tempo</th>
                     <th>Uraian</th>
+                    <th>Total</th>
                     <th width="50"></th>
                 </tr>
             </thead>
@@ -34,10 +35,11 @@
                         <td><?php echo $row->no_bukti; ?></td>
                         <td><?php echo $row->tgl_bukti; ?></td>
                         <td><?php echo strtoupper($row->cara_bayar); ?></td>
-                        <td><?php echo $row->kode_psk; ?></td>
+                        <td><?php echo $row->kode_psk . ' - ' . get_name_suplier($row->kode_psk, 'nama_psk'); ?></td>
                         <td><?php echo $row->jatuh_tempo; ?></td>
                         <td><?php echo $row->tgl_jt; ?></td>
                         <td><?php echo strtoupper($row->uraian); ?></td>
+                        <td style="text-align: right;"><?php echo sum_pembelian($row->no_bukti); ?></td>
                         <td>
                             <div class="btn-group">
                                 <a href="#" data-toggle="dropdown" class="btn btn-mini dropdown-toggle">
@@ -45,7 +47,7 @@
                                     <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu pull-right">                                                                        
-                                    <li><a href="javascript: show_detail_pembelian('<?php echo site_url('mutasi/pembelian/detail_pembelian/'.$row->no_bukti);?>')" id="id_modal_identitas"><i class="icon-zoom-in"></i> Lihat Detail</a></li>
+                                    <li><a href="javascript: show_detail_pembelian('<?php echo site_url('mutasi/pembelian/detail_pembelian/' . $row->no_bukti); ?>')" id="id_modal_identitas"><i class="icon-zoom-in"></i> Lihat Detail</a></li>
                                     <li><a href="<?php echo site_url('mutasi/pembelian/hapus/' . $row->no_bukti); ?>" onclick="javascript: return confirm('Apakah anda yakin akan menghapus data?')"><i class="icon-trash"></i> Hapus</a></li>
                                 </ul>
                             </div>
@@ -63,16 +65,16 @@
         <div class="modal-body">
             <table class="table table-bordered" style="font-size: 9px;">
                 <thead>
-                <tr>
-                    <td>No</td>
-                    <td>Kode Brg</td>
-                    <td>Nama Brg</td>
-                    <td>Jml</td>                    
-                    <td>Satuan</td>
-                    <td>Harga</td>
-                    <td>Disc</td>
-                    <td>Exp Date</td>
-                </tr>
+                    <tr>
+                        <td>No</td>
+                        <td>Kode Brg</td>
+                        <td>Nama Brg</td>
+                        <td>Jml</td>                    
+                        <td>Satuan</td>
+                        <td>Disc</td>
+                        <td>Exp Date</td>                    
+                        <td>Harga</td>
+                    </tr>
                 </thead>
                 <tbody id="tbl_detail_barang"></tbody>
             </table>

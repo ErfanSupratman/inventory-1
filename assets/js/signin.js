@@ -2,7 +2,7 @@ function ShowOrHideLoading(status) {
     status == true ? $('#loading_signin').show() : $('#loading_signin').hide();
 }
 
-$(function() {
+$(function() {    
     $('#frm_signin').submit(function(event) {
         var username = $('#username');
         var password = $('#password');
@@ -18,7 +18,7 @@ $(function() {
         ShowOrHideLoading(true);
         $.ajax({
             url: form_action,
-            type: "GET",
+            type: "POST",
             data: data,
             cache: false,
             success: function(html) {

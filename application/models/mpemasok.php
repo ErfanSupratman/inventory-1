@@ -12,7 +12,7 @@ class MPemasok extends DataMapper {
         $rs = $this->get();
         foreach ($rs as $row) {
             $data[''] = 'Pilih Pemasok';
-            $data[$row->kode_psk] = $row->nama_psk . ' - ' . $row->kontak;
+            $data[$row->kode_psk] = $row->nama_psk;
         }
         return $data;
     }
@@ -39,6 +39,11 @@ class MPemasok extends DataMapper {
             }
             return $Parse . $L;
         }
+    }
+
+    function get_record($val, $field) {
+        $rs = $this->where('kode_psk', $val)->get();
+        return $rs->$field;
     }
 
 }

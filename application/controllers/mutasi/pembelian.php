@@ -57,6 +57,7 @@ class Pembelian extends CI_Controller {
         $mb = new MBarang();
 
         $data = array(
+            'status' => 'PEMBELIAN',
             'kode_brg' => $_POST['kode_brg'],
             'nama_brg' => $mb->get_record($_POST['kode_brg'], 'nama_brg'),
             'jumlah' => $_POST['jumlah'],
@@ -77,47 +78,19 @@ class Pembelian extends CI_Controller {
     }
 
     function simpan() {
-        $ms = new MSementara();
-        $mb = new MBarang();
-        $tgl = strtotime('+' . $_POST['jatuh_tempo'] . ' day', strtotime($_POST['tgl_bukti']));
-        $tgl_jt = date('Y-m-d', $tgl);
-
-        $data = array(
-            'tgl_bukti' => $_POST['tgl_bukti'],
-            'no_bukti' => $_POST['no_bukti'],
-            'kode_psk' => $_POST['kode_psk'],
-            'cara_bayar' => $_POST['cara_bayar'],
-            'jatuh_tempo' => $_POST['jatuh_tempo'],
-            'tgl_jt' => $tgl_jt,
-            'uraian' => $_POST['keterangan'],
-            'user_id' => $this->user_id
-        );
-        //simpan ke table pembelian
-        $this->m->simpan_transaksi($data);
-
-        //simpan ke table hutang jika pembelian dengan cara bayar kredit
-        if ($this->input->post('cara_bayar') == 'kredit') {
-            $this->db->query("INSERT INTO hutang (tgl_bukti,no_bukti,kode_psk,nilai,jatuh_tempo, sisa) 
-                VALUES ('" . $_POST['tgl_bukti'] . "', '" . $_POST['no_bukti'] . "', '" . $_POST['kode_psk'] . "', '" . $_POST['nilai'] . "','" . $_POST['jatuh_tempo'] . "','" . $_POST['nilai'] . "')");
-        }
-
-        //ambil data barang dari table sementara
-        $rs = $ms->where('user_id', $this->user_id)->get();
-        foreach ($rs as $row) {
-            $this->db->query("INSERT INTO trans_detail_pembelian (no_bukti, kode_brg, jumlah, satuan, harga_beli, diskon, harga_stl_diskon, user_id) 
-                VALUES ('" . $_POST['no_bukti'] . "', '$row->kode_brg', '$row->jumlah', '$row->satuan','$row->harga','$row->diskon', '$row->harga_stl_diskon', '$this->user_id')");
-
-            //update stock master barang
-            $mb->update_status_stock_barang($row->kode_brg, $row->satuan, $row->jumlah);
-        }
-
-        $ms->delete_transaksi($this->user_id);
+        $this->external->simpan_transaksi_pembelian();
     }
 
     function detail_pembelian($no_bukti) {
         $md = new MDetail();
         $data['data_barang'] = $md->where('no_bukti', $no_bukti)->get();
         $this->load->view('mutasi/pembelian/ajax/data_detail_pembelian', $data);
+    }
+
+    function sum_pembelian($no_bukti) {
+        $md = new MSementara();
+        $rs = $md->select_sum('harga')->where('status', 'PEMBELIAN')->get();
+        echo rupiah($rs->harga);
     }
 
 }

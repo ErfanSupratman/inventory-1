@@ -60,9 +60,99 @@ function get_pagination($posts, $url) {
     return $html;
 }
 
-function get_data_barang($kode_brg, $field){
+function get_data_barang($kode_brg, $field) {
     $mb = new MBarang();
     $rs = $mb->get_record($kode_brg, $field);
     return $rs;
 }
+
+function replace($search, $subject) {
+    $str = str_replace($search, '', $subject);
+    return $str;
+}
+
+function sum_penjualan($no_bukti) {
+    $mdp = new MDPenjualan();
+    $rs = $mdp->sum_penjualan($no_bukti);
+    return rupiah($rs);
+}
+
+function sum_pembelian($no_bukti) {
+    $mdp = new MDetail();
+    $rs = $mdp->select_sum('harga_beli')->where('no_bukti', $no_bukti)->get();
+    return rupiah($rs->harga_beli);
+}
+
+function get_name_customer($val, $field) {
+    $mp = new MPelanggan();
+    $rs = $mp->get_record($val, $field);
+    return $rs;
+}
+
+function get_name_suplier($val, $field) {
+    $mp = new MPemasok();
+    $rs = $mp->get_record($val, $field);
+    return $rs;
+}
+
+function cetak_kartu_barang($kode_produk) {
+    $mb = new MBarang();
+    $html = '';
+    $x = 0;
+    $result = $mb->where('kode_prd', $kode_produk)->get();
+    foreach ($result as $row) {
+        $x++;
+        $html .= '
+                    <tr>
+                        <td>' . $x . '</td>
+                        <td>' . $row->kode_brg . '</td>
+                        <td>' . $row->nama_brg . '</td>
+                        <td>' . $row->spec . '</td>
+                        <td>' . $row->isi1 . ' Karton</td>
+                        <td>' . $row->isi2 . ' Dosin</td>
+                        <td>' . $row->isi3 . ' Biji</td>
+                        <td>' . $row->stock_awal1 . ' Karton</td>
+                        <td>' . $row->stock_awal2 . ' Dosin</td>
+                        <td>' . $row->stock_awal3 . ' Biji</td>
+                        <td>' . $row->stock_minimal . '</td>
+                        <td>' . $row->stock_maximal . '</td>
+                    </tr>            
+                    ';
+    }
+    echo $html;
+}
+
+function dropdown_tahun() {
+    $now = date("Y");
+    $x = 2010;
+    while ($x <= $now) {
+        $data[$x] = $x;
+        $x++;
+    }
+    return $data;
+}
+
+function dropdown_bulan() {
+    $bulan = array(
+        "" => "[ Bulan ]",
+        "1" => "Januari",
+        "2" => "Februari",
+        "3" => "Maret",
+        "4" => "April",
+        "5" => "Mei",
+        "6" => "Juni",
+        "7" => "Juli",
+        "8" => "Agustus",
+        "9" => "September",
+        "10" => "Oktober",
+        "11" => "November",
+        "12" => "Desember"
+    );
+
+    foreach ($bulan as $key => $value) {
+        $data[$key] = $value;
+    }
+    return $data;
+}
+
 ?>

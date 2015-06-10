@@ -41,6 +41,11 @@ class MPelanggan extends DataMapper {
         }
     }
 
+    function get_record($val, $field) {
+        $rs = $this->where('kode_plg', $val)->get();
+        return $rs->$field;
+    }
+
 }
 
 ?>

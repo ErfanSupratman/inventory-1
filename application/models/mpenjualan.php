@@ -17,6 +17,16 @@ class MPenjualan extends DataMapper {
         return $data;
     }
 
+    function list_drop_kredit() {
+        $rs = $this->where('cara_bayar', 'kredit')->get();
+        $data = array();
+        foreach ($rs as $row) {
+            $data[''] = 'Pilih No Bukti';
+            $data[$row->no_bukti] = $row->no_bukti;
+        }
+        return $data;
+    }
+
     function auto_number() {
         $Digit_Count = 4;
         $Parse = date('ymd');
@@ -39,6 +49,11 @@ class MPenjualan extends DataMapper {
             }
             return $Parse . $L;
         }
+    }
+
+    function simpan_transaksi($data) {
+        $rs = $this->db->insert($this->table, $data);
+        return $rs;
     }
 
 }

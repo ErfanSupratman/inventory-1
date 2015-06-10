@@ -1,16 +1,18 @@
 <?php echo get_header(); ?>
+<script src="<?php echo base_url('assets/js/barang.js'); ?>"></script>
 <div class="widget stacked">
     <div class="widget-header">
         <h3>Data Barang</h3>
         <div class="input-append pull-right" style="margin: 5px;">
             <form id="frm_search_anggota" action="<?php echo site_url("master/anggota/search"); ?>" method="get" id="form_search">
-                <input class="span3" type="text" name="q" placeholder="Cari Nama...">
+                <input class="span3" type="text" name="q" placeholder="Cari Master Barang...">
                 <button type="submit" class="btn" type="button">Refresh</button>
             </form>
         </div>
 
         <a href="<?php echo site_url('master/barang/tambah'); ?>" class="btn btn-success pull-right" style="margin: 5px;">Tambah</a>
-        <a href="<?php echo site_url('master/barang/reorder_link_table'); ?>" onclick="return confirm('Apakah Benar akan melakukan singkronisasi? (Tab Gol, Tab Jenis)')" class="btn btn-danger pull-right" style="margin: 5px;">Singkronisasi</a>
+        <a id="singkronisasi" href="#" data-url="<?php echo site_url('master/barang/reorder_link_table'); ?>" onclick="return confirm('Apakah Benar akan melakukan singkronisasi? (Tab Gol, Tab Jenis)')" class="btn btn-danger pull-right" style="margin: 5px;">Singkronisasi</a>
+        <a id="singkronisasi" href="#" data-url="<?php echo site_url('master/barang/reorder_link_table'); ?>" class="btn btn-info pull-right" style="margin: 5px;">Cetak Laporan</a>
     </div>
     <div class="widget-content">
         <table class="table table-striped table-hover">

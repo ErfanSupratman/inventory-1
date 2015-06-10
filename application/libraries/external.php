@@ -26,16 +26,6 @@ class External {
         $ci->session->userdata('logged_in') == true ? '' : redirect('users/signin');
     }
 
-    function auto_increment_kretrans() {
-        $mkretrans = new Mkretrans();
-        return $mkretrans->auto_number();
-    }
-
-    function auto_increment_tabtrans() {
-        $mtabtrans = new Mtabtrans();
-        return $mtabtrans->auto_number();
-    }
-
     function auto_increment_trans_detail() {
         $mtransd = new Mtrans_detail();
         return $mtransd->auto_number();
@@ -111,7 +101,7 @@ class External {
 
         if ($metode == 'AVG') {
             //HARGA = NILAI STOCK / JUMLAH STOOCK            
-            $rs = $md->where('kode_brg', $kode_brg)->where('satuan', $satuan)->get();            
+            $rs = $md->where('kode_brg', $kode_brg)->where('satuan', $satuan)->get();
             if ($rs->exists()) {
                 foreach ($rs as $row) {
                     $harga = ($row->jumlah * $row->harga_beli);
@@ -120,7 +110,8 @@ class External {
                 }
                 $total = ($sub_total / $jml);
                 $hpp = $this->hpp($total);
-                return number_format($hpp, 0, ",", "");
+//                return number_format($total, 0, ",", "");
+                return rupiah($hpp);
             } else {
                 return '0';
             }
@@ -132,6 +123,61 @@ class External {
          * maka laba kotor (jml_penjualan * harga) - (sub_total * jml_penjualan)
          */
     }
+
+    function simpan_transaksi_pembelian() {
+        $ci = &get_instance();
+
+        $mg = new MGudang();
+        $ms = new MSementara();
+        $mb = new MBarang();
+        $mh = new MHutang();
+        $mp = new MPembelian();
+
+        $user_id = $this->get_session_name('user_id');
+
+        //simpan transkasi ke table pembeliaan
+        $mp->simpan_transaksi($user_id);
+
+        //simpan ke table hutang jika pembelian dengan cara bayar kredit
+        if ($_POST['cara_bayar'] == 'kredit') {
+            $mh->simpan_transaksi();
+        }
+
+        //ambil data barang dari table sementara
+        $rs = $ms->where('user_id', $user_id)->get();
+        foreach ($rs as $row) {
+            $ci->db->query("INSERT INTO trans_detail_pembelian (no_bukti, kode_brg, jumlah, satuan, harga_beli, diskon, harga_stl_diskon, user_id) 
+                VALUES ('" . $_POST['no_bukti'] . "', '$row->kode_brg', '$row->jumlah', '$row->satuan','$row->harga','$row->diskon', '$row->harga_stl_diskon', '$user_id')");
+
+            $mg->update_or_insert_barang($row->kode_brg, $row->satuan, $row->jumlah, $row->harga, $row->harga, $_POST['kode_psk']);
+            //update stock master barang
+            //$mb->update_status_stock_barang($row->kode_brg, $row->satuan, $row->jumlah, 'pembelian');
+        }
+
+        $ms->delete_transaksi($user_id);
+    }
+
+    function gs_havg($kode_brg) {
+        $mg = new MGudang();
+        $harga_beli1 = $mg->get_data_barang_by_kode_brg_and_satuan($kode_brg, 'harga_beli1', 'karton', 'karton');
+        $harga_beli2 = $mg->get_data_barang_by_kode_brg_and_satuan($kode_brg, 'harga_beli2', 'dosin', 'dosin');
+        $harga_beli3 = $mg->get_data_barang_by_kode_brg_and_satuan($kode_brg, 'harga_beli3', 'biji', 'biji');
+
+        if ($harga_beli1 == null) {
+            $havg = 0;
+        } else {
+            $havg = $harga_beli_gudang;
+        }
+
+        return $havg;
+    }
+
+    function gs_harga_beli() {
+        $harga_beli = ($havg * $gs_stock) + ($s_harga * $s_jml) / ($s_jml + $gs_stock);
+        return $harga_beli;
+    }
+    
+    
 
 }
 
